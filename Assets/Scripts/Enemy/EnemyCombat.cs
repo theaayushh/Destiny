@@ -3,11 +3,16 @@ using UnityEngine;
 public class EnemyCombat : MonoBehaviour
 {
     public int damage;
-    private void OnCollisionEnter2D(Collision2D collision)
+    public Transform attackPoint;
+    public float weaponRange;
+    public LayerMask playerLayer;
+
+    public void Attack()
     {
-        if (collision.gameObject.tag == "Player")
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
+        if (hitPlayers.Length > 0)
         {
-            collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-damage);
+            hitPlayers[0].GetComponent<PlayerHealth>().ChangeHealth(-damage);
         }
     }
 }
