@@ -5,6 +5,9 @@ public class EnemyMovement : MonoBehaviour
     public float speed;
     public float attackRange;
     public float attackCooldown;
+    public float playerDetectionRange;
+    public Transform detectionPoint;
+    public LayerMask playerLayer;
 
     private float attackTimer;
     private Rigidbody2D rb;
@@ -23,31 +26,48 @@ public class EnemyMovement : MonoBehaviour
     }
 
     //Checks if object entered in the trigger collider is player or not.
-    private void OnTriggerStay2D(Collider2D collision)
+    private void CheckForPlayer()
     {
-        if (collision.gameObject.tag == "Player")
+        Collider2D[] hits = Physics2D.OverlapCircleAll(detectionPoint.position, playerDetectionRange, playerLayer);
+        if (hits.Length > 0)
         {
-            if (player == null)
+            player = hits[0].transform;
+
+            if (Vector2.Distance(transform.position, player.transform.position) < attackRange && attackTimer <= 0)
             {
-                player = collision.transform;
+                ChangeState(EnemyState.Attack);
+                attackTimer = attackCooldown;
             }
-            ChangeState(EnemyState.Chase);
+
+            else if (Vector2.Distance(transform.position, player.position) > attackRange && enemyState != EnemyState.Attack)
+            {
+                ChangeState(EnemyState.Chase);
+            }
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero; // Stop the enemy when the player exits the trigger
+            ChangeState(EnemyState.Idle);
         }
     }
+         
+    
 
     //Update enemy per frame
     private void Update()
     {
+        CheckForPlayer();
+
         if (attackTimer > 0)
         {
             attackTimer -= Time.deltaTime;
         }
 
-        if (enemyState == EnemyState.Chase && player != null)
+        if (enemyState == EnemyState.Chase)
         {
             enemyMovement = (player.position - transform.position).normalized;
-            MoveCharacter();
-            UpdateAnimationAndMove();
+            Chase();
+            UpdateXY();
         }
 
         else if (enemyState == EnemyState.Attack)
@@ -58,48 +78,29 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             enemyMovement = Vector3.zero;
-            UpdateAnimationAndMove();
+            UpdateXY();
         }
     }
 
 
 
     //Updat enemy X & Y value for animation
-
-
-    private void UpdateAnimationAndMove()
+    private void UpdateXY()
     {
         if (enemyMovement != Vector3.zero)
         {
-            MoveCharacter();
+            Chase();
             animator.SetFloat("moveX", enemyMovement.x);
             animator.SetFloat("moveY", enemyMovement.y);
         }
     }
 
     //Move enemy to the player position
-    private void MoveCharacter()
+    private void Chase()
     {
-        if (Vector2.Distance(transform.position, player.position) <= attackRange && attackTimer <= 0)
-        {
-            attackTimer = attackCooldown;
-            ChangeState(EnemyState.Attack);
-            animator.SetBool("Attack", true);
-            animator.SetBool("Chase", false);
-        }
-        //rb.MovePosition(transform.position + enemyMovement * speed * Time.deltaTime);
+       
         Vector2 direction = (player.position - transform.position).normalized;
         rb.linearVelocity = direction * speed; // Move the enemy towards the player
-    }
-
-    //Checks if object exited the trigger collider is player or not.
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            rb.linearVelocity = Vector2.zero; // Stop the enemy when the player exits the trigger
-            ChangeState(EnemyState.Idle);
-        }
     }
 
     //Change the state of the enemy
@@ -137,5 +138,11 @@ public class EnemyMovement : MonoBehaviour
         Patrol,
         Chase,
         Attack
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(detectionPoint.position, playerDetectionRange);
     }
 }

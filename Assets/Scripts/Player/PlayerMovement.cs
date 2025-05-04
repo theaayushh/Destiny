@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D myRigidbody;
     private Vector3 playerMovement;
     private Animator animator;
+    private bool isKnockedBack;
 
     private void Start()
     {
@@ -18,11 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerMovement = Vector3.zero;
-        playerMovement.x = Input.GetAxisRaw("Horizontal");
-        playerMovement.y = Input.GetAxisRaw("Vertical");
-
-        UpdateAnimationAndMove();
+        if (isKnockedBack == false)
+        {
+            playerMovement = Vector3.zero;
+            playerMovement.x = Input.GetAxisRaw("Horizontal");
+            playerMovement.y = Input.GetAxisRaw("Vertical");
+            UpdateAnimationAndMove();
+        }
     }
 
     private void UpdateAnimationAndMove()
@@ -43,5 +47,20 @@ public class PlayerMovement : MonoBehaviour
     private void MoveCharacter()
     {
         myRigidbody.MovePosition(transform.position + playerMovement * speed * Time.deltaTime);
+    }
+
+    public void knockBack(Transform enemy, float force, float stunTime)
+    {
+        isKnockedBack = true;
+        Vector2 direction = (transform.position - enemy.position).normalized;
+        myRigidbody.linearVelocity = direction * force;
+        StartCoroutine(KnockBackCounter(stunTime));
+    }
+
+    IEnumerator KnockBackCounter(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        myRigidbody.linearVelocity = Vector2.zero; // Stop the player from moving
+        isKnockedBack = false;
     }
 }

@@ -6,6 +6,9 @@ public class EnemyCombat : MonoBehaviour
     public Transform attackPoint;
     public float weaponRange;
     public LayerMask playerLayer;
+    public float knockBackForce;
+    public float stunTime;
+
 
     public void Attack()
     {
@@ -13,6 +16,7 @@ public class EnemyCombat : MonoBehaviour
         if (hitPlayers.Length > 0)
         {
             hitPlayers[0].GetComponent<PlayerHealth>().ChangeHealth(-damage);
+            hitPlayers[0].GetComponent<PlayerMovement>().knockBack(transform, knockBackForce, stunTime);
         }
     }
 }
