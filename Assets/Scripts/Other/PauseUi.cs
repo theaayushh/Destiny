@@ -5,7 +5,7 @@ public class PauseUi : MonoBehaviour
 {
     public CanvasGroup pauseMenu;
     private bool isOpen = false;
-    public StatsUI statsUI;
+    //public StatsUI statsUI;
     public void Update()
     {
         

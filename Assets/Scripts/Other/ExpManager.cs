@@ -10,6 +10,7 @@ public class ExpManager : MonoBehaviour
     public float expMultiplier = 1.5f;
     public Slider expSlider;
     public TMP_Text levelText;
+    public StatsUI points;
 
     public void Start()
     {
@@ -40,6 +41,7 @@ public class ExpManager : MonoBehaviour
     public void LevelUp()
     {
         level++;
+        points.AddPoints(3);
         currentExp -= expToNextLevel;
         expToNextLevel = Mathf.RoundToInt(expToNextLevel * expMultiplier); // Increase the required exp for the next level
     }

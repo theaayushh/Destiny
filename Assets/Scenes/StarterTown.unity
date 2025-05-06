@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aff2e175ea853a4c99f39eff6de05b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 1
   weaponRange: 0.7
   knockbackForce: 20
   knockbackTime: 0.15
@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed488d5dd366514d8d81b34fe7420cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expReward: 2
+  expReward: 10
   currentHealth: 3
   maxHealth: 3
 --- !u!114 &151846039
@@ -1034,7 +1034,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 394075642}
-  statsUI: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,7 +1358,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 000000005d9ec02ddb88f032
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1948,6 +1947,7 @@ MonoBehaviour:
   statsSlots:
   - {fileID: 175330428}
   - {fileID: 1980842490}
+  pointsText: {fileID: 189188083}
 --- !u!1 &1197823310
 GameObject:
   m_ObjectHideFlags: 0
@@ -2788,6 +2788,7 @@ MonoBehaviour:
   expMultiplier: 1.5
   expSlider: {fileID: 52355781}
   levelText: {fileID: 152041645}
+  points: {fileID: 1196540904}
 --- !u!1 &1874790597
 GameObject:
   m_ObjectHideFlags: 0
@@ -3375,7 +3376,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6539624882157959042, guid: 639555366121ad24f8ce026da2b9dfae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 189188082}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639555366121ad24f8ce026da2b9dfae, type: 3}
 --- !u!1001 &6388748439879501552
@@ -3548,6 +3552,34 @@ PrefabInstance:
     - target: {fileID: 427019058479189783, guid: 27e6101ba92246e4abb9c259d41d1deb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888827312667994628, guid: 27e6101ba92246e4abb9c259d41d1deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888827312667994628, guid: 27e6101ba92246e4abb9c259d41d1deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888827312667994628, guid: 27e6101ba92246e4abb9c259d41d1deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1196540904}
+    - target: {fileID: 3888827312667994628, guid: 27e6101ba92246e4abb9c259d41d1deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888827312667994628, guid: 27e6101ba92246e4abb9c259d41d1deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: IncreaseDamage
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888827312667994628, guid: 27e6101ba92246e4abb9c259d41d1deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatsUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888827312667994628, guid: 27e6101ba92246e4abb9c259d41d1deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8651968908906989551, guid: 27e6101ba92246e4abb9c259d41d1deb, type: 3}
       propertyPath: m_Name
