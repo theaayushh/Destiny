@@ -1,16 +1,28 @@
 using UnityEngine;
+using TMPro;
 
 public class StatsUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public GameObject[] statsSlots;
+
+    public void Start()
     {
-        
+        UpdateAllStats();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateDamage()
     {
-        
+        statsSlots[0].GetComponentInChildren<TMP_Text>().text = "Damage: " + StatsManager.Instance.damage;
+    }
+
+    public void UpdateHealth()
+    {
+        statsSlots[1].GetComponentInChildren<TMP_Text>().text = "Health: " + StatsManager.Instance.maxHealth;
+    }
+
+    public void UpdateAllStats()
+    {
+        UpdateDamage();
+        UpdateHealth();
     }
 }
