@@ -56,29 +56,32 @@ public class EnemyMovement : MonoBehaviour
     //Update enemy per frame
     private void Update()
     {
-        CheckForPlayer();
-
-        if (attackTimer > 0)
+        if (enemyState != EnemyState.KnockBack)
         {
-            attackTimer -= Time.deltaTime;
-        }
+            CheckForPlayer();
 
-        if (enemyState == EnemyState.Chase)
-        {
-            enemyMovement = (player.position - transform.position).normalized;
-            Chase();
-            UpdateXY();
-        }
+            if (attackTimer > 0)
+            {
+                attackTimer -= Time.deltaTime;
+            }
 
-        else if (enemyState == EnemyState.Attack)
-        {
-            rb.linearVelocity = Vector2.zero; // Stop the enemy when attacking
-        }
+            if (enemyState == EnemyState.Chase)
+            {
+                enemyMovement = (player.position - transform.position).normalized;
+                Chase();
+                UpdateXY();
+            }
 
-        else
-        {
-            enemyMovement = Vector3.zero;
-            UpdateXY();
+            else if (enemyState == EnemyState.Attack)
+            {
+                rb.linearVelocity = Vector2.zero; // Stop the enemy when attacking
+            }
+
+            else
+            {
+                enemyMovement = Vector3.zero;
+                UpdateXY();
+            }
         }
     }
 
@@ -104,7 +107,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     //Change the state of the enemy
-    void ChangeState(EnemyState newState)
+    public void ChangeState(EnemyState newState)
     {
         //Exit current animation
         if (enemyState == EnemyState.Idle)
@@ -137,7 +140,8 @@ public class EnemyMovement : MonoBehaviour
         Idle,
         Patrol,
         Chase,
-        Attack
+        Attack,
+        KnockBack
     }
 
     private void OnDrawGizmosSelected()

@@ -4,20 +4,18 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     public Slider healthSlider;
-    public int maxHealth;
-    public int currentHealth;
 
     private void Start()
     {
-        healthSlider.maxValue = maxHealth;
-        healthSlider.value = currentHealth;
+        healthSlider.maxValue = StatsManager.Instance.maxHealth;
+        healthSlider.value = StatsManager.Instance.currentHealth;
     }
     public void ChangeHealth(int amount)
     {
-        currentHealth += amount;
-        healthSlider.value = currentHealth;
+        StatsManager.Instance.currentHealth += amount;
+        healthSlider.value = StatsManager.Instance.currentHealth;
 
-        if (currentHealth <= 0)
+        if (StatsManager.Instance.currentHealth <= 0)
         {
             gameObject.SetActive(false);
         }

@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     // ~~ 1. Controls All Player Movement
     // ~~ 2. Updates Animator to Play Idle & Walking Animations
 
-    private float speed = 4f;
+    public PlayerCombat playerCombat;
     private Rigidbody2D myRigidbody;
     private Vector3 playerMovement;
     private Animator animator;
@@ -16,6 +16,14 @@ public class PlayerMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         myRigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        if(Input.GetButtonDown("Attack"))
+        {
+            playerCombat.Attack();
+        }
     }
 
     private void FixedUpdate()
@@ -46,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveCharacter()
     {
-        myRigidbody.MovePosition(transform.position + playerMovement * speed * Time.deltaTime);
+        myRigidbody.MovePosition(transform.position + playerMovement * StatsManager.Instance.speed * Time.deltaTime);
     }
 
     public void knockBack(Transform enemy, float force, float stunTime)
