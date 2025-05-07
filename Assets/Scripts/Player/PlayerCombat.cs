@@ -30,11 +30,15 @@ public class PlayerCombat : MonoBehaviour
     public void DealDamage()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attackpoint.position, StatsManager.Instance.weaponRange, enemyLayer);
-
-        if (enemies.Length > 0)
+        foreach (Collider2D enemy in enemies)
         {
-            enemies[0].GetComponent<EnemyHealth>().ChangeHealth(-StatsManager.Instance.damage);
-            enemies[0].GetComponent<EnemyKnockBack>().KnockBack(transform, StatsManager.Instance.knockbackForce, StatsManager.Instance.knockbackTime ,StatsManager.Instance.stunTime);
+            if (enemy.isTrigger) continue;
+
+            if (enemies.Length > 0)
+            {
+                enemies[0].GetComponent<EnemyHealth>().ChangeHealth(-StatsManager.Instance.damage);
+                enemies[0].GetComponent<EnemyKnockBack>().KnockBack(transform, StatsManager.Instance.knockbackForce, StatsManager.Instance.knockbackTime, StatsManager.Instance.stunTime);
+            }
         }
     }
 
@@ -45,11 +49,10 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (attackpoint != null && StatsManager.Instance != null)
-        {
+       
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackpoint.position, StatsManager.Instance.weaponRange);
-        }
+        
     }
 
 }
