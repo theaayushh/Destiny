@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class PauseUi : MonoBehaviour
@@ -38,6 +39,7 @@ public class PauseUi : MonoBehaviour
             else
             {
                 //statsUI.UpdateAllStats();
+                
                 Time.timeScale = 0;
                 pauseMenu.alpha = 1;
                 profile.blocksRaycasts = true;

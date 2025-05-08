@@ -16,8 +16,9 @@ MonoBehaviour:
   itemDescription: A axe
   itemIcon: {fileID: -3977086879165246916, guid: 2c77e6f5b8b2db540a6a656eae30d303, type: 3}
   isCurrency: 0
-  damage: 2
-  maxHealth: 10
-  currentHealth: 10
+  stackSize: 2
+  damage: 1
+  maxHealth: 0
+  currentHealth: 0
   speed: 0
   duration: 0

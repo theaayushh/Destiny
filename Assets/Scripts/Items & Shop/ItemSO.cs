@@ -8,6 +8,7 @@ public class ItemSO : ScriptableObject
     public Sprite itemIcon;
 
     public bool isCurrency;
+    public int stackSize = 2;
 
     [Header("Item Stats")]
     public int damage;
