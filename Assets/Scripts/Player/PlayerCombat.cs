@@ -47,12 +47,12 @@ public class PlayerCombat : MonoBehaviour
         animator.SetBool("Attack", false);
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    //private void OnDrawGizmosSelected()
+    //{
        
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackpoint.position, StatsManager.Instance.weaponRange);
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawWireSphere(attackpoint.position, StatsManager.Instance.weaponRange);
         
-    }
+    //}
 
 }
